@@ -1,0 +1,69 @@
+<img align="right" src="images/client.gif">
+<{$smarty.const._MD_CLIENTSPACE_CLIENTSPACE}> <{$uname}>
+<hr>
+<br>
+<!-- we display follows up if activated -->
+<{if $clientspace_follow_activated==1}>
+	<table class=outer width=100%>
+		<tr><th colspan="4"><{$smarty.const._MD_CLIENTSPACE_FOLLOWLIST}> </th></tr>
+		<tr> 
+		<td class=head width=30%> <{$smarty.const._MD_CLIENTSPACE_TITLE}> </td>
+		<td align=right class=head width=35%> <{$smarty.const._MD_CLIENTSPACE_DESCRIPTION}> </td>
+		<td align=right class=head width=20%><{$smarty.const._MD_CLIENTSPACE_DATE}></td>
+		<td align=right class=head width=15%> <{$smarty.const._MD_CLIENTSPACE_ISREAD}> </td>
+		</tr>
+	<{foreach from=$clientspace_follow_list item=clientspace_follow_content}>
+		<{if $clientspace_follow_content.suivi_lect==1}>
+			<{assign var="clientspace_read" value=$smarty.const._MD_CLIENTSPACE_READ}>
+		<{elseif $clientspace_follow_content.suivi_lect==0}>
+			<{assign var="clientspace_read" value=$smarty.const._MD_CLIENTSPACE_NOTREAD}>
+		<{elseif $clientspace_follow_content.suivi_lect==3}>
+			<{assign var="clientspace_read" value=$smarty.const._MD_CLIENTSPACE_MODIFIED}>
+		<{/if}>
+  	  <tr>
+		 <td class=even><a href="suivi.php?id=<{$clientspace_follow_content.suivi_id}>"><{$clientspace_follow_content.suivi_title}></a></td>
+  	     <td align=right class=odd><{$clientspace_follow_content.suivi_desc}></td>
+   	     <td class=even align=right><{$clientspace_follow_content.suivi_date}></td>
+   	     <td class=odd align=right><{$clientspace_read}></td>
+  	  </tr>
+	<{/foreach}>
+	</table>
+<{/if}>
+
+<br>
+<br>
+
+
+<{foreach from=$clientspace_documents_list item=clientspace_documents_categories}>
+	<table class=outer width=100%>
+	<tr>
+  	  <th colspan="5"><{$smarty.const._MD_CLIENTSPACE_CONTENTDOC}> <{$clientspace_documents_categories.cat_title}></th>
+	</tr>
+	<tr>
+		<td class=head width=30%><{$smarty.const._MD_CLIENTSPACE_TITLE}></td>
+		<td align=right class=head width=35%><{$smarty.const._MD_CLIENTSPACE_DESCRIPTION}></td>
+		<td align=right class=head width=10%><{$smarty.const._MD_CLIENTSPACE_SIZE}></td>
+		<td align=right class=head width=15%><{$smarty.const._MD_CLIENTSPACE_DATE}></td>
+		<td align=right class=head width=10%><{$smarty.const._MD_CLIENTSPACE_ISREAD}></td>
+	</tr>
+	<{assign var="clientspace_categ" value=$clientspace_documents_categories.cat_title}>
+	<{foreach from=$clientspace_documents_categories.content item=clientspace_documents_content}>
+		<{if $clientspace_documents_content.item_lect==1}>
+			<{assign var="clientspace_read" value=$smarty.const._MD_CLIENTSPACE_READ}>
+		<{elseif $clientspace_documents_content.item_lect==0}>
+			<{assign var="clientspace_read" value=$smarty.const._MD_CLIENTSPACE_NOTREAD}>
+		<{/if}>
+	<tr>
+  		<td class=even><a href="view.php?id=<{$clientspace_documents_content.item_id}>&amp;catname=<{$clientspace_categ}>&amp;fichier=<{$clientspace_documents_content.item_title}><{$clientspace_documents_content.item_ext}>"><{$clientspace_documents_content.item_title}><{$clientspace_documents_content.item_ext}></td>
+		<td align=right class=odd><{$clientspace_documents_content.item_desc}></td>
+		<td class=even align=right><{$clientspace_documents_content.item_size}></td>
+		<td align=right class=odd><{$clientspace_documents_content.item_date}></td>
+		<td align=right class=even><{$clientspace_read}></td>  
+	</tr>
+	<{/foreach}>
+	</table>
+	<br>
+<{/foreach}>
+
+
+ <{include file='db:system_notification_select.html'}>

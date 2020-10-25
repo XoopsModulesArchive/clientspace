@@ -1,0 +1,18 @@
+<{$smarty.const._MB_CLIENTSPACE_BLOCK_LAST_FOLLOWS}>
+<ul>
+<{foreach item=message from=$block.clientspace_recent_items_block.follow}>
+<li>
+<{$message.suivi_date}><br>
+<a href ="<{$xoops_url}>/modules/clientspace/suivi.php?id=<{$message.suivi_id}>"><{$message.suivi_title}></a>
+</li>
+<{/foreach}>
+</ul>
+<{$smarty.const._MB_CLIENTSPACE_BLOCK_LAST_DOC}>
+<ul>
+<{foreach item=message from=$block.clientspace_recent_items_block.items}>
+<li>
+<{$message.item_date}><br>
+<a href ="<{$xoops_url}>/modules/clientspace/view.php?id=<{$message.item_id}>&amp;catname=<{$message.cat_name}>&amp;fichier=<{$message.item_title}><{$message.item_ext}>"><{$message.item_title}><{$message.item_ext}></a> (<{$message.cat_name}>)
+</li>
+<{/foreach}>
+</ul>
